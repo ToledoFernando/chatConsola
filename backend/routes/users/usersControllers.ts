@@ -2,6 +2,8 @@ import { IUserRegister } from "../../types/Users";
 import { Request, Response } from "express";
 import users from "../../models/users";
 import bcrypt from "bcrypt";
+import sendEmail from "../../email/sendEmail";
+import { IUserSendEmail } from "../../types/Email";
 
 export const loginUser = (req: Request, res: Response) => {
   res.send("ERROR");
@@ -32,8 +34,15 @@ export const registerUser = async (req: Request, res: Response) => {
     };
 
     const result = await users.create(newUser);
+    let dataEmail: IUserSendEmail = {
+      username: result.username,
+      email: result.email,
+      codeVerify: result.codeVerify,
+    };
+    await sendEmail("sendVerifyAcount", dataEmail);
     res.send("OK");
-  } catch (error) {
+  } catch (error: Error | any) {
+    console.log(error.message);
     res.send("OCURRIO UN ERROR");
   }
 };

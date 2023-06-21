@@ -1,6 +1,7 @@
 import express from "express";
 import routes from "./routes/routes";
 import conn from "./db/conn";
+import { PORT } from "./config/config";
 
 conn();
 
@@ -10,6 +11,6 @@ app.use(express.json());
 
 app.use(routes);
 
-app.listen(3000, () => {
-  console.log("Server on port 3000");
+app.listen(PORT, () => {
+  console.log(`Server on port ${PORT}`);
 });
