@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
+  "description": "Server",
   "main": "main.js",
   "scripts": {
     "dev": "ts-node-dev src/main.ts",
